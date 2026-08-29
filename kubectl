@@ -1,0 +1,10 @@
+kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
+kubectl run -it --image curlimages/curl curl-container -- sh
+kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
+kubectl scale deployment nginx-deploy --replicas 3
+kubectl rollout status deployment nginx
+kubectl rollout restart deployment nginx-deploy 
+kubectl rollout pause deployment nginx-deploy
+kubectl rollout undo deployment nginx-deploy
+kubectl rollout undo deployment nginx-deploy --to-revision
+
