@@ -7,4 +7,6 @@ kubectl rollout restart deployment nginx-deploy
 kubectl rollout pause deployment nginx-deploy
 kubectl rollout undo deployment nginx-deploy
 kubectl rollout undo deployment nginx-deploy --to-revision
-
+##########################
+##########################
+kubectl explain deployment.spec.template.spec | grep volumes 
