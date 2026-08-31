@@ -7,6 +7,8 @@ kubectl rollout restart deployment nginx-deploy
 kubectl rollout pause deployment nginx-deploy
 kubectl rollout undo deployment nginx-deploy
 kubectl rollout undo deployment nginx-deploy --to-revision
+kubectl run -it load-gen --rm --image=busybox --restart=Never -- /bin/sh -C "while true sleep 0.01; do wget http://10.108.117.249/index.php; done"
+
 ##########################
 ##########################
 kubectl explain deployment.spec.template.spec | grep volumes 
