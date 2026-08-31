@@ -14,3 +14,9 @@ kubectl run -it load-gen --rm --image=busybox --restart=Never -- /bin/sh -C "whi
 kubectl explain deployment.spec.template.spec | grep volumes 
 kubectl port-forward -n test services/svc-nginx 8080:80
 kubectl proxy --port 8080
+####################
+kubectl get po --show-labels
+kubectl get po -l app --show-labels === kubectl get po --selector app --show-labels
+
+
+
