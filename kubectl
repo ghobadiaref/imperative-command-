@@ -17,6 +17,7 @@ kubectl proxy --port 8080
 ####################
 kubectl get po --show-labels
 kubectl get po -l app --show-labels === kubectl get po --selector app --show-labels
-
+###################
+kubectl expose deployment dep-web --name php-svc --type NodePort --port 80 --dry-run=client -o yaml
 
 
