@@ -11,3 +11,4 @@ kubectl rollout undo deployment nginx-deploy --to-revision
 ##########################
 kubectl explain deployment.spec.template.spec | grep volumes 
 kubectl port-forward -n test services/svc-nginx 8080:80
+kubectl proxy --port 8080
