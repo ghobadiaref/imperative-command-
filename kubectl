@@ -20,3 +20,10 @@ kubectl get po -l app --show-labels === kubectl get po --selector app --show-lab
 ###################
 kubectl expose deployment dep-web --name php-svc --type NodePort --port 80 --dry-run=client -o yaml
 kubectl create ingress nginx-deploy --class nginx --rule=aref.com/=svc-nginx:80 --dry-run -o yaml
+################ explain #####################
+kubectl explain secret | grep -E '^\S' ==> har character except space / tab 
+k explain secret --recursive
+explain secret | sed -n '/^FIELDS:/,$p' | grep -E '^  \w'
+kubectl explain secret | awk '/^FIELDS:/{f=1;next} f && /^  [a-zA-Z]/{print $1}'
+kubectl explain secret --recursive | grep '<' | column -t
+
