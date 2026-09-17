@@ -1,0 +1,8 @@
+docker container run -itd --entrypoint bash project-alpha:v1
+docker compose ps 
+docker compose ls 
+docker compose logs --tail 20 -f 
+docker compose up --force-recreate 
+docker run -itd --workdir=/etc --env=name=aref --user=root --name alpine --hostname container -p 80:8080 --restart always nginx:latest sleep 1000
+docker container cp passwd web:/usr/share/nginx/html
+
