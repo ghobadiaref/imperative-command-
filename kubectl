@@ -26,4 +26,6 @@ k explain secret --recursive
 explain secret | sed -n '/^FIELDS:/,$p' | grep -E '^  \w'
 kubectl explain secret | awk '/^FIELDS:/{f=1;next} f && /^  [a-zA-Z]/{print $1}'
 kubectl explain secret --recursive | grep '<' | column -t
+##################### finalaizer ##################
+kubectl get namespace "stucked-namespace" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/stucked-namespace/finalize -f -
 
