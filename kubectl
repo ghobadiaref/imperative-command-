@@ -28,4 +28,7 @@ kubectl explain secret | awk '/^FIELDS:/{f=1;next} f && /^  [a-zA-Z]/{print $1}'
 kubectl explain secret --recursive | grep '<' | column -t
 ##################### finalaizer ##################
 kubectl get namespace "stucked-namespace" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/stucked-namespace/finalize -f -
+#############################HostAliases #################
+kubectl edit configmap coredns -n kube-system
+kubectl run dns-test --image=busybox:1.28 --restart=Never -it --rm -- nslookup gitlab.cando.ac
 
