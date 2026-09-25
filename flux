@@ -19,3 +19,35 @@ flux get kustomizations
 flux reconcile source git flux-system
 k get gitrepositories.source.toolkit.fluxcd.io -n flux-system -o yaml
 ##################################################
+################ GitRepository ##################
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: project-alpha-repo
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://gitlab.cando.ac/cando/project-alpha.git
+  ref:
+    branch: main
+  certSecretRef:
+    name: gitlab-ca-cert
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: project-alpha-deployment
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./deploy" 
+  prune: true   
+  sourceRef:
+    kind: GitRepository
+    name: project-alpha-repo
+  targetNamespace: default
+###############secret ######################
+kubectl create secret generic gitlab-ca-cert \
+  --namespace flux-system \
+  --from-file=ca.crt=/usr/local/share/ca-certificates/gitlab.cando.ac.crt
+#####################
