@@ -1,0 +1,4 @@
+kubeadm token list
+kubeadm token create --print-join-command
+kubeadm config images list
+kubeadm config images pull --kubernetes-version v1.34.1
