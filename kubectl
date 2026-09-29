@@ -1,5 +1,6 @@
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
+kubectl get po -n default test -o yaml
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
 kubectl scale deployment nginx-deploy --replicas 3
 kubectl rollout history deployment webtest 
