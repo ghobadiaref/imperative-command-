@@ -1,5 +1,7 @@
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
+kubectl run   my-nginx --image=nginx
+kubectl get po | awk '{print $1}' | xargs kubectl delete po
 kubectl get po -n default test -o yaml
 kubectl api-resources --namespaced=false
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
@@ -38,5 +40,7 @@ kubectl run dns-test --image=busybox:1.28 --restart=Never -it --rm -- nslookup g
 ########################################################################################################################
 kubectl describe ns test
 kubectl get resourcequotas -n test
-########################################################################################################################
 
+######################################################### ConfigMap ###############################################################
+kubectl create configmap nginxconfig --from-file default.conf --dry-run -o yaml
+kubectl create configmap config --from-literal POSTGRESS_USER=aref --from-literal POSTGRESS_PASSWORD=123 --dry-run -o yaml
