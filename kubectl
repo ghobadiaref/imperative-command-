@@ -1,8 +1,10 @@
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
 kubectl get po -n default test -o yaml
+kubectl api-resources --namespaced=false
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
 kubectl scale deployment nginx-deploy --replicas 3
+######################################################## rollout ###############################################################
 kubectl rollout history deployment webtest 
 kubectl rollout status deployment nginx
 kubectl rollout restart deployment nginx-deploy 
@@ -11,31 +13,30 @@ kubectl rollout undo deployment nginx-deploy
 kubectl rollout undo deployment nginx-deploy --to-revision
 kubectl get rs 
 kubectl run -it load-gen --rm --image=busybox --restart=Never -- /bin/sh -C "while true sleep 0.01; do wget http://10.108.117.249/index.php; done"
-
-##########################
-##########################
+########################################################################################################################
 kubectl explain deployment.spec.template.spec | grep volumes 
 kubectl port-forward -n test services/svc-nginx 8080:80
 kubectl proxy --port 8080
-####################
+######################################################## label ###############################################################
+kubectl rollout history deployment webtest 
 kubectl get po --show-labels
 kubectl get po -l app --show-labels === kubectl get po --selector app --show-labels
-###################
+########################################################################################################################
 kubectl expose deployment dep-web --name php-svc --type NodePort --port 80 --dry-run=client -o yaml
 kubectl create ingress nginx-deploy --class nginx --rule=aref.com/=svc-nginx:80 --dry-run -o yaml
-################ explain #####################
+######################################################## explain ###############################################################
 kubectl explain secret | grep -E '^\S' ==> har character except space / tab 
 k explain secret --recursive
 explain secret | sed -n '/^FIELDS:/,$p' | grep -E '^  \w'
 kubectl explain secret | awk '/^FIELDS:/{f=1;next} f && /^  [a-zA-Z]/{print $1}'
 kubectl explain secret --recursive | grep '<' | column -t
-##################### finalaizer ##################
+######################################################### finalaizer ###############################################################
 kubectl get namespace "stucked-namespace" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/stucked-namespace/finalize -f -
-#############################HostAliases #################
+######################################################### HostAlias ###############################################################
 kubectl edit configmap coredns -n kube-system
 kubectl run dns-test --image=busybox:1.28 --restart=Never -it --rm -- nslookup gitlab.cando.ac
-####################
+########################################################################################################################
 kubectl describe ns test
 kubectl get resourcequotas -n test
-###################
-kubectl api-resources --namespaced=false
+########################################################################################################################
+
