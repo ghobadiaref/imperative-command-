@@ -47,4 +47,5 @@ kubectl create configmap nginxconfig --from-file default.conf --dry-run -o yaml
 kubectl create configmap config --from-literal POSTGRESS_USER=aref --from-literal POSTGRESS_PASSWORD=123 --dry-run -o yaml
 ######################################################### Headless Service  ###############################################################
 kubectl get svc -n test 
-kubectl get ep -n test #### None 
+kubectl get ep -n test  
+
