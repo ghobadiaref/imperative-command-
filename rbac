@@ -1,0 +1,19 @@
+role : workload ==> roleBinding ==> identity 
+cluster role : pv storageClass ==> clusterRoleBinding ==> identity 
+Note : Assigning a ClusterRole with pod-creation privileges through a ClusterRoleBinding effectively grants the user cluster-wide permission to create pods in any namespace
+####################### Steps to Create a User in Kubernetes (via X.509 Certificates)
+openssl genrsa -out erfan.pem
+openssl req -new -key aref.pem -out aref.csr -subj "/CN=aref/O=devops"
+# csr decoder 
+kubectl api-resources | grep cert
+kubectl apply -f csr.yaml
+kubectl get certificatesigningrequests.certificates.k8s.io
+# issue 
+kubectl certificate approve aref
+kubectl get certificatesigningrequests.certificates.k8s.io
+# Retrieve the certificate issued by Kubernetes
+kubectl get csr aref -o yaml  
+kubectl get csr aref -o jsonpath='{.status.certificate}' | base64 -d > aref.crt
+# rbac 
+kubectl --as aref get deployments.apps  -n test
+

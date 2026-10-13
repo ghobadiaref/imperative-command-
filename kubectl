@@ -1,3 +1,9 @@
+kubectl --kubeconfig=admin.conf get po 
+cp /etc/kubernetes/admin.conf .kube/config 
+kubectl config view --raw ===> show admin.conf  
+kubectl config get-contexts
+kubectl --context kubernetes-admin@kubernetes get po
+#########################################
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
 kubectl run   my-nginx --image=nginx
@@ -6,6 +12,8 @@ kubectl get po -n default test -o yaml
 kubectl api-resources --namespaced=false
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
 kubectl scale deployment nginx-deploy --replicas 3
+kubectl get pod sh -o jsonpath='{.spec.containers[0].image}'
+kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 ######################################################## rollout ###############################################################
 kubectl rollout history deployment webtest 
 kubectl rollout status deployment nginx
