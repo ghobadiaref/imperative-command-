@@ -1,8 +1,10 @@
 kubectl --kubeconfig=admin.conf get po 
 cp /etc/kubernetes/admin.conf .kube/config 
 kubectl config view --raw ===> show admin.conf  
+kubectl config view --minify
 kubectl config get-contexts
 kubectl --context kubernetes-admin@kubernetes get po
+kubectl config set-context --current --namespace=default
 #########################################
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh

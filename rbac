@@ -16,4 +16,5 @@ kubectl get csr aref -o yaml
 kubectl get csr aref -o jsonpath='{.status.certificate}' | base64 -d > aref.crt
 # rbac 
 kubectl --as aref get deployments.apps  -n test
+# We need to give the user an admin.conf file so they can add it to their profile
 
