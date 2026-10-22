@@ -15,6 +15,7 @@ kubectl api-resources --namespaced=false
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
 kubectl scale deployment nginx-deploy --replicas 3
 kubectl get pod sh -o jsonpath='{.spec.containers[0].image}'
+kubectl get pod pod -o jsonpath='{.spec.nodeName}{"\n"}{range .spec.containers[*]}{"Image: "}{.image}{"\nPullPolicy: "}{.imagePullPolicy}{"\n"}{end}'
 kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 ######################################################## rollout ###############################################################
 kubectl rollout history deployment webtest 
@@ -33,6 +34,8 @@ kubectl proxy --port 8080
 kubectl rollout history deployment webtest 
 kubectl get po --show-labels
 kubectl get po -l app --show-labels === kubectl get po --selector app --show-labels
+kubectl get nodes --show-labels -l  node-role.kubernetes.io/control-plane
+kubectl label nodes node5.cando.ac node-role.kubernetes.io/worker=worker
 ########################################################################################################################
 kubectl expose deployment dep-web --name php-svc --type NodePort --port 80 --dry-run=client -o yaml
 kubectl create ingress nginx-deploy --class nginx --rule=aref.com/=svc-nginx:80 --dry-run -o yaml
