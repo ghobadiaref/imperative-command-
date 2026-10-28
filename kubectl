@@ -61,4 +61,6 @@ kubectl create configmap config --from-literal POSTGRESS_USER=aref --from-litera
 ######################################################### Headless Service  ###############################################################
 kubectl get svc -n test 
 kubectl get ep -n test  
-
+#########################################################
+kubectl get crd 
+kubectl get ippools.crd.projectcalico.org default-pool -o yaml
