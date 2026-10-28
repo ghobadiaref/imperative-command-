@@ -14,6 +14,10 @@ kubectl get po -n default test -o yaml
 kubectl api-resources --namespaced=false
 kubectl create deployment nginx-deploy --image nginx --replicas=2  --dry-run -o yaml
 kubectl scale deployment nginx-deploy --replicas 3
+kubectl get po -o name 
+kubectl get nodes -o custom-columns=NAME:.metadata.name
+kubectl get nodes -o custom-columns=NAME:.metadata.name,STATUS:.status.conditions[-1].type
+kubectl get nodes -o custom-columns=NAME:.metadata.name,IP:.status.addresses[0].address
 kubectl get pod sh -o jsonpath='{.spec.containers[0].image}'
 kubectl get pod pod -o jsonpath='{.spec.nodeName}{"\n"}{range .spec.containers[*]}{"Image: "}{.image}{"\nPullPolicy: "}{.imagePullPolicy}{"\n"}{end}'
 kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
