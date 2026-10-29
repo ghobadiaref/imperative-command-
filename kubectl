@@ -70,3 +70,6 @@ kubectl get ep -n test
 #########################################################
 kubectl get crd 
 kubectl get ippools.crd.projectcalico.org default-pool -o yaml
+################################# NetworkPolicy #########################
+kubectl exec -it curl -- sh
+kubectl get networkpolicy 
