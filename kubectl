@@ -10,6 +10,7 @@ kubectl apply -f rbac.yaml --dry-run -o yaml
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
 kubectl run   my-nginx --image=nginx
+kubectl get pods -l app=myapp -w
 kubectl get po | awk '{print $1}' | xargs kubectl delete po
 kubectl get po -n default test -o yaml
 kubectl api-resources --namespaced=false
