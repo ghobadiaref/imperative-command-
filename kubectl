@@ -6,6 +6,7 @@ kubectl config get-contexts
 kubectl --context kubernetes-admin@kubernetes get po
 kubectl config set-context --current --namespace=default
 #########################################
+kubectl get ns --show-labels 
 kubectl apply -f rbac.yaml --dry-run -o yaml
 kubectl run --image docker.io/busybox:latest single-pod  --port=8080  --image-pull-policy=Never --dry-run -o yaml
 kubectl run -it --image curlimages/curl curl-container -- sh
