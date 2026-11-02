@@ -74,3 +74,7 @@ kubectl get ippools.crd.projectcalico.org default-pool -o yaml
 ################################# NetworkPolicy #########################
 kubectl exec -it curl -- sh
 kubectl get networkpolicy 
+########################### autoscal #######################
+kubectl create deployment --image nginx 
+kubectl autoscale deployment myapp  --cpu-percent=50 --max=4 --min=1 --dry-run -o yaml
+#####################3
